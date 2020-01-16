@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
 	Input,
 	Layout,
@@ -10,6 +10,7 @@ import {
 	List,
 	Typography,
 	DatePicker,
+	Form,
 } from 'antd';
 import moment from 'moment';
 const { RangePicker } = DatePicker;
@@ -54,6 +55,16 @@ const NestedTable = () => {
 	const startValue = null,
 		endValue = null,
 		endOpen = false;
+	const formItemLayout = {
+		labelCol: {
+			xs: { span: 24 },
+			sm: { span: 8 },
+		},
+		wrapperCol: {
+			xs: { span: 24 },
+			sm: { span: 16 },
+		},
+	};
 	const columns = [
 		{ title: 'Base', dataIndex: 'base', key: 'base' },
 		{ title: 'Cliente', dataIndex: 'cliente', key: 'cliente' },
@@ -63,28 +74,18 @@ const NestedTable = () => {
 			title: 'Fechas',
 			key: 'fechas',
 			render: () => (
-				<span>
-					<InputGroup compact>
-						<Input
-							style={{ width: '80%', color: '#FFFFFF', background: '#72A4D2' }}
-							size="small"
-							defaultValue="Carga"
-						/>
-
+				<Form layout="inline">
+					<Form.Item label="Carga">
 						<DatePicker
+							addonBefore="Entrega"
 							size="default"
 							showTime
 							format="YYYY-MM-DD HH:mm"
 							defaultValue={moment('2020-01-01 12:30', 'YYYY-MM-DD HH:mm')}
 							placeholder="Start"
 						/>
-					</InputGroup>
-					<InputGroup compact>
-						<Input
-							style={{ width: '80%', color: '#FFFFFF', background: '#72A4D2' }}
-							size="small"
-							defaultValue="Entrega"
-						/>
+					</Form.Item>
+					<Form.Item label="Entrega">
 						<DatePicker
 							size="default"
 							showTime
@@ -93,8 +94,8 @@ const NestedTable = () => {
 							placeholder="End"
 							open={endOpen}
 						/>
-					</InputGroup>
-				</span>
+					</Form.Item>
+				</Form>
 			),
 		},
 		{
@@ -170,7 +171,6 @@ const NestedTable = () => {
 			key: i,
 			base: 'Naucalpan',
 			cliente: 'DILTEX',
-			cliente: 'AQUAPRIMA',
 			unidad: 'GF6000-1 Ejes: 2',
 			operador: 'Abraham Sanchez Machuca',
 			grupo: 'LOCAL C',
