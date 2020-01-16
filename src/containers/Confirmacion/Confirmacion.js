@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Layout, Table, Badge, Menu, Dropdown, Icon } from 'antd';
 const { Content } = Layout;
-const menu = (
-	<Menu>
-		<Menu.Item>Action 1</Menu.Item>
-		<Menu.Item>Action 2</Menu.Item>
-	</Menu>
-);
 const NestedTable = () => {
 	const expandedRowRender = () => {
 		const columns = [
-			{ title: 'Date', dataIndex: 'date', key: 'date' },
-			{ title: 'Name', dataIndex: 'name', key: 'name' },
+			{ title: 'Tramo', dataIndex: 'tramo', key: 'tramo' },
+			{ title: 'Destino', dataIndex: 'destino', key: 'destino' },
+			{ title: 'Distancia', dataIndex: 'distancia', key: 'distancia' },
+			{ title: 'Fecha', dataIndex: 'fecha', key: 'fecha' },
+			{ title: 'Tiempo', dataIndex: 'tiempo', key: 'tiempo' },
+			{ title: 'Observaciones', dataIndex: 'observaciones', key: 'observaciones' },
 			{
 				title: 'Status',
 				key: 'state',
@@ -22,56 +20,96 @@ const NestedTable = () => {
 					</span>
 				),
 			},
-			{ title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum' },
-			{
-				title: 'Action',
-				dataIndex: 'operation',
-				key: 'operation',
-				render: () => (
-					<span className="table-operation">
-						<a>Pause</a>
-						<a>Stop</a>
-						<Dropdown overlay={menu}>
-							<a>
-								More <Icon type="down" />
-							</a>
-						</Dropdown>
-					</span>
-				),
-			},
 		];
 
 		const data = [];
 		for (let i = 0; i < 3; ++i) {
 			data.push({
 				key: i,
-				date: '2014-12-24 23:12:00',
-				name: 'This is production name',
-				upgradeNum: 'Upgraded: 56',
+				tramo: i + 1,
+				destino: 'Guadalajara, Jalisco, México',
+				distancia: '513 km',
+				fecha: '2014-12-24 23:12:00',
+				tiempo: '8 Horas 50 minutos',
+				observaciones: 'Ruta 405 del día 16/01',
 			});
 		}
 		return <Table columns={columns} dataSource={data} pagination={false} />;
 	};
 	const columns = [
-		{ title: 'Fecha', dataIndex: 'fecha', key: 'fecha' },
-		{ title: 'Hora Carga', dataIndex: 'horaCarga', key: 'horaCarga' },
+		{ title: 'Base', dataIndex: 'base', key: 'base' },
 		{ title: 'Cliente', dataIndex: 'cliente', key: 'cliente' },
-		{ title: 'Upgraded', dataIndex: 'upgradeNum', key: 'upgradeNum' },
-		{ title: 'Creator', dataIndex: 'creator', key: 'creator' },
-		{ title: 'Date', dataIndex: 'createdAt', key: 'createdAt' },
-		{ title: 'Action', key: 'operation', render: () => <a>Publish</a> },
+		{ title: 'Unidad', dataIndex: 'unidad', key: 'unidad' },
+		{ title: 'Operador', dataIndex: 'operador', key: 'operador' },
+		{
+			title: 'Gastos',
+			children: [
+				{
+					title: 'Grupo',
+					dataIndex: 'grupo',
+					key: 'grupo',
+				},
+				{
+					title: 'Disel',
+					dataIndex: 'disel',
+					key: 'disel',
+				},
+				{
+					title: 'Casetas',
+					dataIndex: 'casetas',
+					key: 'casetas',
+				},
+				{
+					title: 'Alimentos',
+					dataIndex: 'alimentos',
+					key: 'alimentos',
+				},
+				{
+					title: 'Transito',
+					dataIndex: 'transito',
+					key: 'transito',
+				},
+				{
+					title: 'Maniobras',
+					dataIndex: 'maniobras',
+					key: 'maniobras',
+				},
+				{
+					title: 'Comision',
+					dataIndex: 'comision',
+					key: 'comision',
+				},
+			],
+		},
+		{ title: 'Precio', dataIndex: 'precio', key: 'precio' },
+		{
+			title: 'Status',
+			key: 'state',
+			render: () => (
+				<span>
+					<Badge status="success" />
+					Finished
+				</span>
+			),
+		},
 	];
 
 	const data = [];
 	for (let i = 0; i < 3; ++i) {
 		data.push({
 			key: i,
-			name: 'Screem',
-			horaCarga: 'iOS',
-			cliente: '10.3.4.5654',
-			upgradeNum: 500,
-			creator: 'Jack',
-			createdAt: '2014-12-24 23:12:00',
+			base: 'Naucalpan',
+			cliente: 'DILTEX',
+			unidad: 'GF6000-1 Ejes: 2',
+			operador: 'Abraham Sanchez Machuca',
+			grupo: 'LOCAL C',
+			disel: 2160,
+			casetas: 2000,
+			alimentos: 160,
+			transito: 0,
+			maniobras: 0,
+			comision: 600,
+			precio: 50000,
 		});
 	}
 	return (
