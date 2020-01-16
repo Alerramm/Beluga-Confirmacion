@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
-import { Layout, Table, Badge, Menu, Dropdown, Icon } from 'antd';
+import {
+	Input,
+	Layout,
+	Table,
+	Badge,
+	Menu,
+	Dropdown,
+	Icon,
+	List,
+	Typography,
+	DatePicker,
+} from 'antd';
+import moment from 'moment';
+const { RangePicker } = DatePicker;
+const InputGroup = Input.Group;
 const { Content } = Layout;
 const NestedTable = () => {
 	const expandedRowRender = () => {
@@ -15,8 +29,8 @@ const NestedTable = () => {
 				key: 'state',
 				render: () => (
 					<span>
-						<Badge status="success" />
-						Finished
+						<Badge status="warning" />
+						Pendiente
 					</span>
 				),
 			},
@@ -36,19 +50,76 @@ const NestedTable = () => {
 		}
 		return <Table columns={columns} dataSource={data} pagination={false} />;
 	};
+	const data2 = ['Monterrey', 'Guadalajara', 'Tamaulipas'];
+	const startValue = null,
+		endValue = null,
+		endOpen = false;
 	const columns = [
 		{ title: 'Base', dataIndex: 'base', key: 'base' },
 		{ title: 'Cliente', dataIndex: 'cliente', key: 'cliente' },
 		{ title: 'Unidad', dataIndex: 'unidad', key: 'unidad' },
 		{ title: 'Operador', dataIndex: 'operador', key: 'operador' },
 		{
+			title: 'Fechas',
+			key: 'fechas',
+			render: () => (
+				<span>
+					<InputGroup compact>
+						<Input
+							style={{ width: '80%', color: '#FFFFFF', background: '#72A4D2' }}
+							size="small"
+							defaultValue="Carga"
+						/>
+
+						<DatePicker
+							size="default"
+							showTime
+							format="YYYY-MM-DD HH:mm"
+							defaultValue={moment('2020-01-01 12:30', 'YYYY-MM-DD HH:mm')}
+							placeholder="Start"
+						/>
+					</InputGroup>
+					<InputGroup compact>
+						<Input
+							style={{ width: '80%', color: '#FFFFFF', background: '#72A4D2' }}
+							size="small"
+							defaultValue="Entrega"
+						/>
+						<DatePicker
+							size="default"
+							showTime
+							format="YYYY-MM-DD HH:mm"
+							defaultValue={moment('2020-01-01 20:30', 'YYYY-MM-DD HH:mm')}
+							placeholder="End"
+							open={endOpen}
+						/>
+					</InputGroup>
+				</span>
+			),
+		},
+		{
+			title: 'Destinos',
+			key: 'destino',
+			render: () => (
+				<span>
+					<List
+						bordered
+						size="small"
+						dataSource={data2}
+						renderItem={(item, index) => <List.Item>{item}</List.Item>}
+					/>
+				</span>
+			),
+		},
+		{ title: 'Precio', dataIndex: 'precio', key: 'precio' },
+		{
+			title: 'Grupo',
+			dataIndex: 'grupo',
+			key: 'grupo',
+		},
+		{
 			title: 'Gastos',
 			children: [
-				{
-					title: 'Grupo',
-					dataIndex: 'grupo',
-					key: 'grupo',
-				},
 				{
 					title: 'Disel',
 					dataIndex: 'disel',
@@ -81,14 +152,13 @@ const NestedTable = () => {
 				},
 			],
 		},
-		{ title: 'Precio', dataIndex: 'precio', key: 'precio' },
 		{
 			title: 'Status',
 			key: 'state',
 			render: () => (
 				<span>
-					<Badge status="success" />
-					Finished
+					<Badge status="warning" />
+					Pendiente
 				</span>
 			),
 		},
@@ -100,6 +170,7 @@ const NestedTable = () => {
 			key: i,
 			base: 'Naucalpan',
 			cliente: 'DILTEX',
+			cliente: 'AQUAPRIMA',
 			unidad: 'GF6000-1 Ejes: 2',
 			operador: 'Abraham Sanchez Machuca',
 			grupo: 'LOCAL C',
